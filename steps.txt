@@ -1,0 +1,53 @@
+1 Create a new folder on your computer
+2 Open the  folder in the terminal
+3 npm init  ->(to initialize a package.json file)
+4 npm i typescript ts-node-dev @types/node @types/express - D
+5 npm i express
+6 npm i prisma -D  (for database operations)
+7 npm i @prisma/client  (for database operations)
+8 npm i [ cors,dotenv,handlebars,jsonwebtoken,morgan,
+          nodemailer,zod,bcryptjs,cloudinary,cookie-parser,
+          express-fileupload, helmet, http-status-enum,
+          node-cron, trim-request, winston, compression ]
+9 tsc --init (to initialize a tsconfig.json file)
+
+
+#####  For prisma
+npx prisma init
+npx prisma db push
+
+
+
+
+const allowedDomains = ["http://localhost:3001", "http://localhost:3002"]
+const corsOptions = (req: Request) =>{
+    let temp
+    const origin = req.headers["Origin"] as string
+    if(allowedDomains.indexOf(origin) !== -1){
+        temp = {
+            origin: true,
+            credentials: true,
+            methods: ['GET','POST'],
+            optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+        }
+    }else {
+        temp = {
+            origin: false,
+            credentials: false
+        }
+    }
+    return temp
+}
+
+
+
+const allowedOrigins = ["http://localhost:3001", "http://localhost:3002"]
+const corsOptions = {
+    origin: function (origin:any, callback:any) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+          callback(null, true)
+        } else {
+           callback('Not allowed by CORS')
+        }
+      }
+}
